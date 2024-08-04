@@ -5,6 +5,7 @@ import (
 	"github.com/stripe/stripe-go/v79"
 	"github.com/stripe/stripe-go/v79/checkout/session"
 	"log"
+	"millanuka.com/stripe-checkout/routes"
 	"net/http"
 	"os"
 )
@@ -18,11 +19,9 @@ func main() {
 
 	stripe.Key = os.Getenv("STRIPE_KEY")
 
-	http.Handle("/", http.FileServer(http.Dir("public")))
-	http.HandleFunc("/create-checkout-session", createCheckoutSession)
-	addr := "localhost:4242"
-	log.Printf("Listening on %s", addr)
-	log.Fatal(http.ListenAndServe(addr, nil))
+	router := routes.InitRouter()
+
+	router.Run("localhost:8001")
 }
 
 func createCheckoutSession(w http.ResponseWriter, r *http.Request) {
