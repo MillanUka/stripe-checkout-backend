@@ -15,7 +15,7 @@ func main() {
 		log.Fatal("Error loading environment variables")
 	}
 
-	stripe.Key = os.Getenv("STRIPE_KEY")
+	stripe.Key = os.Getenv("SECRET_STRIPE_KEY")
 
 	router := routes.InitRouter()
 

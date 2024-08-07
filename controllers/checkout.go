@@ -9,12 +9,13 @@ import (
 )
 
 func CreateCheckoutSession(context *gin.Context) {
-	domain := "http://localhost:8001"
+	domain := "http://localhost:3000"
 	params := &stripe.CheckoutSessionParams{
 		LineItems: []*stripe.CheckoutSessionLineItemParams{
 			{
-				Price:    stripe.String("{{PRICE_ID}}"),
+				Price:    stripe.String("price_1PjqUlFWFeysBUTb28wAlGtG"),
 				Quantity: stripe.Int64(1),
+				TaxRates: []*string{stripe.String("txr_1Pl4o3FWFeysBUTbTS9ORhhA")},
 			},
 		},
 		Mode:       stripe.String(string(stripe.CheckoutSessionModePayment)),
