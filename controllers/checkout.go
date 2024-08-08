@@ -1,21 +1,22 @@
 package controllers
 
 import (
+	"log"
+	"net/http"
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/stripe/stripe-go/v79"
 	"github.com/stripe/stripe-go/v79/checkout/session"
-	"log"
-	"net/http"
 )
 
 func CreateCheckoutSession(context *gin.Context) {
-	domain := "http://localhost:3000"
+	domain := os.Getenv("FRONTEND_BASE_URL")
 	params := &stripe.CheckoutSessionParams{
 		LineItems: []*stripe.CheckoutSessionLineItemParams{
 			{
-				Price:    stripe.String("price_1PjqUlFWFeysBUTb28wAlGtG"),
+				Price:    stripe.String(os.Getenv("PRICE_ID")),
 				Quantity: stripe.Int64(1),
-				TaxRates: []*string{stripe.String("txr_1Pl4o3FWFeysBUTbTS9ORhhA")},
 			},
 		},
 		Mode:       stripe.String(string(stripe.CheckoutSessionModePayment)),

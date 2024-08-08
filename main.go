@@ -19,5 +19,5 @@ func main() {
 
 	router := routes.InitRouter()
 
-	router.Run("localhost:8001")
+	router.Run(os.Getenv("BASE_URL"))
 }
